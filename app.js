@@ -54,13 +54,13 @@ app.use('/category', CategoryRoute) ;
 app.use("/uploads", express.static("./uploads"));
 //console.log(__dirname)
 
-if (process.env.NODE_ENV=='production'){
-  app.use(express.static('./client/www')); 
-  app.get('*', (req, res)=>{
-      res.sendFile(path.join(process.env.PWD,'client','www','index.html')); 
-  })
+// if (process.env.NODE_ENV=='production'){
+//   app.use(express.static('./client/www')); 
+//   app.get('*', (req, res)=>{
+//       res.sendFile(path.join(process.env.PWD,'client','www','index.html')); 
+//   })
 
-}
+// }
 
 app.listen (process.env.PORT ||3000, ()=>{
 console.log('server up and running ');
