@@ -31,8 +31,8 @@ exports.user_signup= async (req,res)=>{
        address : req.body.address ,
        phone : req.body.phone ,
        email : req.body.email , 
-       password : hashPassword  
-
+       password : hashPassword ,
+       role : req.body.role
         });
         try {
             const savedUser = await user.save()
