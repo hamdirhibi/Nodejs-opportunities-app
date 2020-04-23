@@ -27,7 +27,7 @@ exports.user_signup= async (req,res)=>{
     const hashPassword = await bcrypt.hash(req.body.password,salt);
 
     const user = new User ({
-       full : req.body.fullname ,
+       fullName : req.body.fullName ,
        address : req.body.address ,
        phone : req.body.phone ,
        email : req.body.email , 

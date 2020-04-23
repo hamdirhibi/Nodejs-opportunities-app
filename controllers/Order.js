@@ -18,6 +18,28 @@ exports.Order_findAll = async (req,res)=>{
 }
 
 
+//getAll Order By id 
+exports.Order_by_ID = async (req,res)=>{
+    try{
+       // console.log('request for Order !! ')
+
+        const order = await Order.find({
+            author : req.params.orderId
+        }); 
+        res.json(order);
+    }catch (err){
+        res.json({message : err}); 
+        console.log(err) ;
+    }
+
+
+
+}
+
+
+
+
+
 //Create New product 
 exports.Order_save = async (req,res)=>{
         console.log(req.body)

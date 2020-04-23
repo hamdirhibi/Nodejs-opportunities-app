@@ -3,7 +3,7 @@ const Joi = require('joi');
 //register validation 
 const registerValidation = (data)=>{
     const schema = Joi.object().keys( {
-        fullname : Joi.string()
+        fullName : Joi.string()
         .min(6)
         .required(), 
         
@@ -20,7 +20,10 @@ const registerValidation = (data)=>{
         
         password : Joi.string()
         .min(6)
+        .required() ,
+        role : Joi.string()
         .required() 
+
     }
     )
     
