@@ -2,6 +2,26 @@ const Order  = require ('../models/Order')
 const User =  require('../models/User')
 const Product =  require('../models/Product')
 
+
+exports.Order_get_One= async (req,res)=>{
+    try{
+       // console.log('request for Order !! ') 
+        const order = await Order.findById({
+            _id : req.params.orderId
+            }); 
+            
+        res.json(order); 
+       
+    }catch (err){
+        res.json({message : err}); 
+        console.log(err) ;
+    }
+
+
+
+}
+
+
 //getAll Categories
 exports.Order_findAll = async (req,res)=>{
     try{
@@ -13,20 +33,18 @@ exports.Order_findAll = async (req,res)=>{
         console.log(err) ;
     }
 
-
-
 }
-
 
 //getAll Order By id 
 exports.Order_by_ID = async (req,res)=>{
     try{
-       // console.log('request for Order !! ')
-
+       // console.log('request for Order !! ') 
         const order = await Order.find({
             author : req.params.orderId
-        }); 
-        res.json(order);
+            }); 
+            
+        res.json(order); 
+       
     }catch (err){
         res.json({message : err}); 
         console.log(err) ;
@@ -57,7 +75,8 @@ exports.Order_save = async (req,res)=>{
             state : state ,
             total : req.body.total,
             deleveryDate : req.body.deleveryDate,
-            paymentMethod : req.body.paymentMethod
+            paymentMethod : req.body.paymentMethod,
+            phone : req.body.phone
             }); 
             const savedOrder = await Order.create(order).
             then(()=>{

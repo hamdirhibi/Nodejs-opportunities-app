@@ -8,7 +8,6 @@ const {jwtOptions} = require('../config/jwtOptions');
 
 
 exports.user_signup= async (req,res)=>{
-    console.log("registration here ")
     //Data Validation 
      const {error} =  registerValidation  (req.body);
    
@@ -46,7 +45,7 @@ exports.user_signup= async (req,res)=>{
 
 
 exports.user_login = async (req,res)=>{
-    console.log('login here ') ; 
+   // console.log('login here ') ; 
     const {error} = loginvalidation(res.body) ; 
 
     if (error) return res.status(400).send(error.details[0].message) ; 
@@ -60,7 +59,7 @@ exports.user_login = async (req,res)=>{
     //PASSWORD IS CORRECT 
     bcrypt.compare( req.body.password , user.password, (err, result) =>{
         if(err){
-             res.status(403).json({message :'Incorrect Password'});
+             res.status(403).json('Incorrect Password');
         }
         if(result){
             let payload = { user };
@@ -69,7 +68,7 @@ exports.user_login = async (req,res)=>{
            return res.status(200).json({ message: 'ok', token , email: user.email  });
         }
         else{
-          return  res.status(403).json({message :'incorrect password'});
+          return  res.status(403).json('incorrect password');
         }
 
     })
@@ -78,7 +77,7 @@ exports.user_login = async (req,res)=>{
 
 
 exports.user_current =   function(req, res) {
-    console.log('current user here ')  ; 
+  //  console.log('current user here ')  ; 
         return res.status(200).json(req.userData);
  
 }
