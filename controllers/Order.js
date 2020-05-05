@@ -1,11 +1,10 @@
 const Order  = require ('../models/Order')
 const User =  require('../models/User')
 const Product =  require('../models/Product')
-
+const {OrderValidation} = require('../validation')
 
 exports.Order_get_One= async (req,res)=>{
     try{
-       // console.log('request for Order !! ') 
         const order = await Order.findById({
             _id : req.params.orderId
             }); 
@@ -14,7 +13,6 @@ exports.Order_get_One= async (req,res)=>{
        
     }catch (err){
         res.json({message : err}); 
-        console.log(err) ;
     }
 
 
@@ -25,12 +23,10 @@ exports.Order_get_One= async (req,res)=>{
 //getAll Categories
 exports.Order_findAll = async (req,res)=>{
     try{
-        console.log('request for Order !! ')
         const order = await Order.find(); 
         res.json(order);
     }catch (err){
         res.json({message : err}); 
-        console.log(err) ;
     }
 
 }
@@ -47,7 +43,6 @@ exports.Order_by_ID = async (req,res)=>{
        
     }catch (err){
         res.json({message : err}); 
-        console.log(err) ;
     }
 
 
@@ -60,7 +55,9 @@ exports.Order_by_ID = async (req,res)=>{
 
 //Create New product 
 exports.Order_save = async (req,res)=>{
-        console.log(req.body)
+
+        const {error} = OrderValidation(res.body) ; 
+        if (error) return res.status(400).send(error.details[0].message) ; 
         try{
             const user = await User.findById(req.body.author); 
             if (!user) 
@@ -76,7 +73,10 @@ exports.Order_save = async (req,res)=>{
             total : req.body.total,
             deleveryDate : req.body.deleveryDate,
             paymentMethod : req.body.paymentMethod,
-            phone : req.body.phone
+            phone : req.body.phone,
+            freeSpace : req.body.freeSpace ,
+            weight : req.body.weight,
+            orderAddress : req.body.orderAddress 
             }); 
             const savedOrder = await Order.create(order).
             then(()=>{
@@ -86,7 +86,24 @@ exports.Order_save = async (req,res)=>{
             }catch(err){
                 res.json({message : err});
             }
-    
-    }
+
+        }
 
     
+
+//getAll Categories
+exports.Order_OnPregress = async (req,res)=>{
+    try{
+            const order = await Order.find({
+                state : "onProgress"
+            }); 
+     
+            res.json(order) ; 
+
+    }catch (err){
+        res.json({message : err}); 
+    }
+
+}
+
+

@@ -3,7 +3,6 @@ const Category = require('../models/Category')
 //getAll Categories
 exports.Category_findAll = async (req,res)=>{
     try{
-        console.log('request for categories !! ')
         const product = await Category.find(); 
         res.json(product);
     }catch (err){
@@ -14,6 +13,12 @@ exports.Category_findAll = async (req,res)=>{
 
 
 }
+
+
+
+
+
+
 //get speicific product 
 exports.Category_findOne =async (req,res) =>{
     try{
@@ -62,6 +67,7 @@ exports.Category_save = async (req,res)=>{
     //Update  Card  
     exports.Category_update = async (req,res)=>{
     try{
+        
         const updateCategory = await Category.updateOne(
             {_id:req.params.categoryId},
              {$set : {

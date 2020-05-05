@@ -21,6 +21,14 @@ const productSchema = mongoose.Schema({
       available : {
           type : Boolean ,
           require : true 
+      },
+      unit_qte : {
+          type : Number ,  
+          require : true 
+      },
+      unit_id  : {
+            type  : String , 
+            require : true  
       }
 })
 

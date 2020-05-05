@@ -52,6 +52,66 @@ const loginValidation = (data)=>{
     
 }
     
+//Product validation
+const ProductValidation = (data)=>{
+    const schema = Joi.object().keys( {
+       
+        
+        name : Joi.string()
+        .required(),        
+        price : Joi.number()
+        .required() ,
+        category : Joi.string()
+        .required() ,
+        price : Joi.number()
+        .required() ,
+        available : Joi.boolean()
+        .required() ,
+        unit_qte : Joi.number()
+        .required() ,
+        unit_id : Joi.string()
+        .required() ,
+        orderAddress : Joi.string()
+        .required 
+    }
+    )
+    
+    return Joi.validate(data,schema) ; 
+    
+    
+}
 
+//Product validation
+const OrderValidation = (data)=>{
+    const schema = Joi.object().keys( {
+       
+        products : Joi.array()
+        .min(1),        
+        quantities : Joi.array()
+        .min(1),        
+        total : Joi.number()
+        .required(),        
+        phone : Joi.string()
+        .required() ,
+        deleveryDate : Joi.date()
+        .required() ,
+        paymentMethod : Joi.string()
+        .required() ,
+        freeSpace : Joi.string()
+        .required() ,
+        weight : Joi.number()
+        .required() 
+
+    }
+    )
+    
+    return Joi.validate(data,schema) ; 
+    
+    
+}
+
+  
 module.exports.registerValidation = registerValidation  ;
 module.exports.loginvalidation = loginValidation  ;
+module.exports.ProductValidation = ProductValidation  ;
+module.exports.OrderValidation = OrderValidation  ;

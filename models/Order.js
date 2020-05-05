@@ -39,6 +39,17 @@ const orderSchema = mongoose.Schema({
       paymentMethod : {
           type : String , 
           require : true 
+      },
+      freeSpace  : {
+          type : String ,    
+      },
+      weight : {
+          type : Number , 
+          require : true 
+      },
+      orderAddress : {
+          type : String , 
+          require : true 
       }
 })
 

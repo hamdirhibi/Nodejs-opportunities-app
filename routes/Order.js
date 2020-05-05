@@ -4,9 +4,10 @@ const OrderController = require("../controllers/Order");
 const checkAuth = require("../middleware/checkAuth");
 
 
-router.get("/", checkAuth,  OrderController.Order_findAll);
-router.post("/addOrder", checkAuth,  OrderController.Order_save);
-router.get("/:orderId", checkAuth,  OrderController.Order_by_ID);
-router.get("/getOne/:orderId", checkAuth,  OrderController.Order_by_ID);
+router.get("/", checkAuth ,  OrderController.Order_findAll);
+router.get("/onProgress/", checkAuth , OrderController.Order_OnPregress);
+router.post("/addOrder", checkAuth ,  OrderController.Order_save);
+router.get("/:orderId", checkAuth ,  OrderController.Order_by_ID);
+router.get("/getOne/:orderId", checkAuth ,  OrderController.Order_by_ID);
 
 module.exports = router ; 

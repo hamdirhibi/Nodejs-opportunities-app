@@ -8,7 +8,9 @@ const productRoute = require('./routes/Product');
 const UserRoute = require('./routes/User'); 
 const OrderRoute = require('./routes/Order'); 
 const CategoryRoute = require('./routes/Category'); 
-//const  User = require('./models/User'); 
+const  Product = require('./models/Product'); 
+const  Category = require('./models/Category'); 
+
 const path = require ('path') ; 
 
 dotenv.config() ; 
@@ -39,8 +41,13 @@ mongoose.connect(process.env.MONGODB_URI,
 ()=>{console.log('connected to db ');  
 })
 
+//    Category.findOne({
+//   name : 'juice' 
+// },  (err,category)=>{
+//    Product.collection.updateMany({category : category._id}, {$set : {unit_id : 'l'}},false , true);
+// Product.collection.updateMany({category : category._id}, {$set : {unit_qte : '1'}},false , true);
 
-//User.collection.updateMany({}, {$set : {role : 'ROLE_CLIENT'}},false , true);
+// })
 
  //Middlewares 
  app.use(express.json())
