@@ -3,6 +3,10 @@ const User =  require('../models/User')
 const Product =  require('../models/Product')
 const {OrderValidation} = require('../validation')
 
+
+
+
+//get one order 
 exports.Order_get_One= async (req,res)=>{
     try{
         const order = await Order.findById({
@@ -20,7 +24,7 @@ exports.Order_get_One= async (req,res)=>{
 }
 
 
-//getAll Categories
+//getAll orders
 exports.Order_findAll = async (req,res)=>{
     try{
         const order = await Order.find(); 
@@ -53,7 +57,7 @@ exports.Order_by_ID = async (req,res)=>{
 
 
 
-//Create New product 
+//Create New order 
 exports.Order_save = async (req,res)=>{
 
         const {error} = OrderValidation(res.body) ; 
@@ -91,7 +95,7 @@ exports.Order_save = async (req,res)=>{
 
     
 
-//getAll Categories
+//getAll onprogress order
 exports.Order_OnPregress = async (req,res)=>{
     try{
             const order = await Order.find({
@@ -106,4 +110,55 @@ exports.Order_OnPregress = async (req,res)=>{
 
 }
 
+//accepted order
+exports.Order_Accepted=async (req,res)=>{
+    try{
 
+    const order = await Order.findOne({
+        _id : req.params.orderId
+        },
+        async function  (err,rep){
+        if (rep.state!='onProgress')
+        return res.status(409).send("order status must be onProgress") ; 
+        const updatedOrder = await Order.updateOne(
+            {_id:req.params.orderId},
+             {$set : {
+                state : "accepted", 
+             }
+         }); 
+             res.json(updatedOrder);
+        }
+        )
+    //const res  = order.toObject({ getters: true }) ; 
+  
+  
+
+   
+    }catch (err){
+        res.json({message : err})
+    }
+}
+
+
+//refused order
+exports.Order_Refused=async (req,res)=>{
+    try{
+        const order = await Order.findOne({
+            _id : req.params.orderId
+            },
+            async function  (err,rep){
+            if (rep.state!='onProgress')
+            return res.status(409).send("order status must be onProgress") ; 
+            const updatedOrder = await Order.updateOne(
+                {_id:req.params.orderId},
+                 {$set : {
+                    state : "refused", 
+                 }
+             }); 
+                 res.json(updatedOrder);
+            }
+            )
+    }catch (err){
+        res.json({message : err})
+    }
+}
