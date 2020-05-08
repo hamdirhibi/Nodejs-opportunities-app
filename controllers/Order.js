@@ -162,3 +162,28 @@ exports.Order_Refused=async (req,res)=>{
         res.json({message : err})
     }
 }
+
+
+
+//Confirmed order
+exports.Order_Confirmed=async (req,res)=>{
+    try{
+        const order = await Order.findOne({
+            _id : req.params.orderId
+            },
+            async function  (err,rep){
+            if (rep.state!='accepted')
+            return res.status(409).send("order status must be Accepted") ; 
+            const updatedOrder = await Order.updateOne(
+                {_id:req.params.orderId},
+                 {$set : {
+                    state : "confirmed", 
+                 }
+             }); 
+                 res.json(updatedOrder);
+            }
+            )
+    }catch (err){
+        res.json({message : err})
+    }
+}

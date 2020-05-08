@@ -11,5 +11,6 @@ router.get("/:orderId", checkAuth ,  OrderController.Order_by_ID);
 router.get("/getOne/:orderId", checkAuth ,  OrderController.Order_by_ID);
 router.patch("/accepted/:orderId", checkAuth , OrderController.Order_Accepted);
 router.patch("/refused/:orderId", checkAuth , OrderController.Order_Refused);
+router.patch("/confirmed/:orderId", checkAuth , OrderController.Order_Confirmed);
 
 module.exports = router ; 
