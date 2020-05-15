@@ -68,6 +68,6 @@ io.on("connection", (socket) => {
 
   socket.on("new-order", (data) => {
     console.log("new---order");
-    socket.emit("new-order", { order: data.order });
+    io.emit("notif");
   });
 });
