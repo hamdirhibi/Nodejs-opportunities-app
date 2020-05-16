@@ -5,7 +5,7 @@ const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
 const port = process.env.PORT || 3000;
 dotenv.config();
-
+console.log('test');
 //import routes
 const productRoute = require("./routes/Product");
 const UserRoute = require("./routes/User");
