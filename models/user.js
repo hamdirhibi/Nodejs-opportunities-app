@@ -1,10 +1,14 @@
 const mongoose = require("mongoose");
 const userSchema = new mongoose.Schema({
-  fullName: {
+  name: {
     type: String,
     require: true,
     min: 6,
     max: 255,
+  },
+  summary : {
+    type: String,
+    require: true,
   },
   phone: {
     type: String,
@@ -17,7 +21,7 @@ const userSchema = new mongoose.Schema({
     min: 6,
     max: 255,
   },
-  role: {
+  rule: {
     type: String,
     require: true,
   },
@@ -33,6 +37,21 @@ const userSchema = new mongoose.Schema({
     max: 1024,
     min: 6,
   },
+  image : {
+    type: String,
+    require : false 
+  },
+  skills : {
+    type : Array, 
+    require : false 
+  },
+  sessions : [ 
+      {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "session",
+      required: true,
+    }
+  ]
 });
 
 module.exports = mongoose.model("User", userSchema);

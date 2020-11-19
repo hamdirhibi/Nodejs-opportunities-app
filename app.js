@@ -8,7 +8,12 @@ dotenv.config();
 
 
 //import routes
-const UserRoute = require("./routes/User");
+const userRoute = require("./routes/user");
+const applicationRoute = require("./routes/application");
+const opportunityRoute = require("./routes/opportunity");
+const notifcationRoute = require("./routes/notification");
+const sessionRoute = require("./routes/session");
+const skillRoute = require("./routes/skill");
 
 // configuration of the rest API
 app.use((req, res, next) => {
@@ -31,7 +36,12 @@ app.use((req, res, next) => {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 // route middlewares
-app.use("/user", UserRoute);
+app.use("/user", userRoute);
+app.use("/opportunity", opportunityRoute);
+app.use("/application", applicationRoute);
+app.use("/notification", notifcationRoute);
+app.use("/session", sessionRoute);
+app.use("/skills", skillRoute);
 
 
 //Connect to DB
@@ -39,5 +49,16 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true }, () => {
   console.log("connected to db ");
   
 });
+const server = require("http").createServer(app);
+server.listen(port);
+const io = require("socket.io").listen(server);
 
-app.listen(port) ; 
+io.on("connection", (socket) => {
+  console.log("new connection made ");
+
+  socket.on("new-notif", (data) => {
+    console.log("new---notif");
+    io.emit("new-notif");
+  });
+});
+
