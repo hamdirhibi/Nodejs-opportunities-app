@@ -41,17 +41,21 @@ const userSchema = new mongoose.Schema({
     type: String,
     require : false 
   },
-  skills : {
-    type : Array, 
-    require : false 
-  },
-  sessions : [ 
+  skills : [
+   {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "skill",
+      required: true,
+   }
+  ],
+  opportunities : [ 
       {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "session",
+      ref: "opportunity",
       required: true,
     }
-  ]
+  ],
+
 });
 
 module.exports = mongoose.model("User", userSchema);

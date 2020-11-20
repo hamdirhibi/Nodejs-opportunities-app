@@ -7,7 +7,6 @@ const notification = require('../models/notification');
 exports.addSession = async (req,res) =>{
     try {
         
-
         const user = await User.find({
             _id : req.params.user  
         })
@@ -21,8 +20,8 @@ exports.addSession = async (req,res) =>{
 
         })
         user.sessions.push(session);
-        user.save().then( session =>{
-            res.status(200).json(session);
+        user.save().then( s =>{
+            res.status(200).json(s);
         })
 
         res.json(session)
@@ -87,7 +86,6 @@ exports.updateSessionDate= async (req,res) =>{
                      date : req.body.date
                  }
              }
-
         )
     }
     catch(err){

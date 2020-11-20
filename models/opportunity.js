@@ -10,23 +10,29 @@ const opportunitySchema = new mongoose.Schema({
         type : String ,
         required : true , 
     },
-    startAt : {
-        type : Date  , 
-        required : true , 
-
-    },
-    endAt : {
-        type : Date  , 
-        required : true , 
-
+    date : {
+        type : Date , 
+        required: true 
     },
     type : {
         type : String , 
         require : true 
     },
+    duration : {
+        type : String  , 
+        required : true , 
+    },
     sallary : {
         type : Number , 
         required : true 
+    },
+    contractType : {
+        type : String , 
+        required : false 
+    },
+    cover : {
+        type : String , 
+        required : false 
     },
     skills : [
     {

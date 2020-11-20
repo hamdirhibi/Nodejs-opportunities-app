@@ -17,16 +17,12 @@ exports.newOpportunity = async (req,res) =>{
         }
         const createdAt = new Date();
 
-        if (createdAt>req.body.startAt){
+        if (createdAt>req.body.date){
             return res
             .status(409)
-            .json({ message: "date start must be upper than actual date   ! " });
+            .json({ message: "date must be upper than current date   ! " });
         }
-        if (req.body.endAt<req.body.startAt){
-            return res
-            .status(409)
-            .json({ message: "date start must be before date end   ! " });
-        }
+       
 
 
         let skills = [];
@@ -36,13 +32,13 @@ exports.newOpportunity = async (req,res) =>{
         const newOpportunity = new Opportunity({
             title : req.body.title ,
             description : req.body.description ,
-            startAt : req.body.startAt ,
-            endtAt : req.body.endtAt ,
+            date : req.body.date ,
+            cover : req.body.cover ,
             type : req.body.type ,
             sallary : req.body.sallary ,
             company : req.params.companyId,
+            contratType : req.body.contratType,
             skills : skills , 
-            user : req.params.userId , 
             status : 'available' 
         });
 
@@ -142,6 +138,58 @@ exports.updateOpportunity = async (req,res) =>{
             
         })
         res.status(200).json(opportunityUpdated); 
+    }
+    catch(err){
+        res.json({message: err})
+    }
+}
+exports.updateOpportunityCover = async (req,res) =>{
+    try {
+        
+        await  Opportunity.updateOne(
+            {_id : req.params.sessionId} ,
+             {
+                 $set : {
+                     cover : req.body.cover
+                 }
+             }
+
+        )
+    }
+    catch(err){
+        res.json({message: err})
+    }
+}
+
+
+exports.updateOpportunityDuration = async (req,res) =>{
+    try {
+        
+        await Opportunity.updateOne(
+            {_id : req.params.sessionId} ,
+             {
+                 $set : {
+                     duration : req.body.duration
+                 }
+             }
+
+        )
+    }
+    catch(err){
+        res.json({message: err})
+    }
+}
+exports.updateOpportunityDate= async (req,res) =>{
+    try {
+        
+        await Opportunity.updateOne(
+            {_id : req.params.sessionId} ,
+             {
+                 $set : {
+                     date : req.body.date
+                 }
+             }
+        )
     }
     catch(err){
         res.json({message: err})
